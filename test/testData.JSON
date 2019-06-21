@@ -1,0 +1,23 @@
+{
+    "login": "mutation {login(email: \"bhupendrasingh.ec18@gmail.com\", password: \"123456789\") {  success token}}",
+    "registration": "mutation {registration( firstname: \"prasanna\", lastname: \"more\", email: \"test@gmail.com\", password: \"123456789\") { message success}}",
+    "createlabel": "mutation{ addLabel(labelName:\"test label\"){  message  success} }",
+    "removelabel": "mutation {removeLabel( labelID:\"5cdd4a5dcf8aac4e73246c44\") {message success }}",
+    "updatelabel": "mutation {updateLable( labelID:\"5cdd4a5dcf8aac4e73246c44\",newlabelName:\"update label test\") {message success }}",
+    "forgot": "mutation {forgotpassword(email:\"moreprasanna8@gmail.com\"){message success}}",
+    "addnote":"mutation{ addnote(title:\"abc\" discription:\"abc 1\"){   message success }  }",
+    "editnote":"mutation{  editnote(title:\"abc\" discription:\"abc 1\" NoteID:\"5cdfcc7a5c92e95bacdd35aa\"){ message success  } }",
+    "removenote":"mutation{   removenote(NoteID:\"5cdfcc7a5c92e95bacdd35aa\"){     message   success  } }",
+    "addLabelToNote":"mutation{ addLabelToNote(NoteID:\"5cd3f40e81fbe66d748ed3c0\",labelID:\"5ce00e1a82080b0e24f506b2\"){    message success }  }",
+    "trashNote":"mutation{  trash(NoteID:\"5cecb8ab7d69e11ceb0ecc06\"){     message     success   }  }",
+    "unTrashNote":"mutation{  untrash(NoteID:\"5cecb8ab7d69e11ceb0ecc06\"){     message     success   }  }",
+    "archiveNote":"mutation{  archive(NoteID:\"5cecb8ab7d69e11ceb0ecc06\"){     message     success   }  }",
+    "unarchiveNote":"mutation{  unarchive(NoteID:\"5cecb8ab7d69e11ceb0ecc06\"){     message     success   }  }",
+    "reminder":"mutation{  addReminder(NoteID:\"5cecb8ab7d69e11ceb0ecc06\" date:\"05/05/2019 01:03:00\"){     message     success   }  }",
+    "watchRepository":"mutation{   watchrepository(watchrepository:\"prasa\",owner:\"prasannamore\"){      success  }   }",
+    "UnwatchRepository":"mutation{   unwatchrepository(unwatchrepository:\"prasa\",owner:\"prasannamore\"){    success   }   }",
+    "star":"mutation{  star{   success}}",
+    "unstar":"mutation{  unstar{  success}}",
+    "addCollaborator":"mutation{   addCollaborator(noteID:\"5ce7b2db98db33414c6b85ac\" collaborateID:\"5ce7b1e60f0b884066e06013\"){     message success  }  }",
+    "removeCollaborator":"mutation{   removeCollaborator(noteID:\"5ce7b2db98db33414c6b85ac\" collaborateID:\"5ce7b1e60f0b884066e06013\"){     message success  }  }"
+}
