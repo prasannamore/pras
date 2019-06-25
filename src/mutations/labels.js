@@ -26,24 +26,22 @@ const authentication = require("../../services/authenticationService").authentic
    * @param {*} context    :  context 
    */
 exports.addLabel = async (root, args, context, info) => {
+    let result = {
+        "message": "Something bad happened",
+        "success": false
+    }
     try {
         // check if token is provided
         if (context.token) {
             var payload = await authentication(context.token)
             if (payload) {
                 if (args.labelName.length < 3) {
-                    return {
-                        "message": "label name should be have length of atleast 3",
-                        "success": false
-                    }
+                    throw new Error("label name should be have length of atleast 3")
                 }
                 // find if label name already exists for user
                 var presentlabel = await labelModel.find({ labelName: args.labelName, UserID: payload.user_ID })
                 if (presentlabel.length > 0) {
-                    return {
-                        "message": "label already exits",
-                        "success": false
-                    }
+                    throw new Error("label already exits")
                 }
                 // save label
                 var newlabel = new labelModel({ labelName: args.labelName, UserID: payload.user_ID })
@@ -59,33 +57,30 @@ exports.addLabel = async (root, args, context, info) => {
                 }
                 else {
                     // return label connot add
-                    return {
-                        "message": "label cannot be added",
-                        "success": false
-                    }
+                    throw new Error("label cannot be added")
                 }
             }
             else {
                 // return label not added
-                return {
-                    "message": "label cannot be added",
-                    "success": false
-                }
+                throw new Error("label cannot be added")
             }
         }
         else {
             // return token not provided
-            return {
-                "message": "token not provided",
-                "success": false
-            }
+            throw new Error("token not provided")
         }
     }
     // catch if error occures
     catch (err) {
-        return {
-            "message": err,
-            "success": false
+        if (err instanceof ReferenceError
+            || err instanceof SyntaxError
+            || err instanceof TypeError
+            || err instanceof RangeError) {
+            return result;
+        }
+        else {
+            result.message = err.message;
+            return result
         }
     }
 }
@@ -156,6 +151,10 @@ exports.addLabel = async (root, args, context, info) => {
   * @param {*} context    : context 
    */
 exports.removeLabel = async (root, args, context) => {
+    let result = {
+        "message": "Something bad happened",
+        "success": false
+    }
     try {
         // check if token is provided
         if (context.token) {
@@ -175,32 +174,41 @@ exports.removeLabel = async (root, args, context) => {
                 }
                 else {
                     // return label remove unsuccess
-                    return {
-                        "message": "Unable to remove label",
-                        "success": false
-                    }
+                    // return {
+                    //     "message": "Unable to remove label",
+                    //     "success": false
+                    // }
+                    throw new Error("Unable to remove label")
                 }
             }
             else {
                 // retun un authorised
-                return {
-                    "message": "Un Auth",
-                    "success": false
-                }
+                // return {
+                //     "message": "Un Auth",
+                //     "success": false
+                // }
+                throw new Error("Un Auth")
             }
         }
         else {
             // return token not provided
-            return {
-                "message": "token not provided",
-                "success": false
-            }
+            // return {
+            //     "message": "token not provided",
+            //     "success": false
+            // }
+            throw new Error("token not provideds")
         }
     } catch (err) {
         // return error
-        return {
-            "message": err,
-            "success": false
+        if (err instanceof ReferenceError
+            || err instanceof SyntaxError
+            || err instanceof TypeError
+            || err instanceof RangeError) {
+            return result;
+        }
+        else {
+            result.message = err.message;
+            return result
         }
     }
 
@@ -215,14 +223,19 @@ exports.removeLabel = async (root, args, context) => {
    */
 
 exports.updateLabel = async (root, args, context) => {
+    let result = {
+        "message": "Something bad happened",
+        "success": false
+    }
     try {
         if (context.token) {
             // check if labelName is given
             if (args.labelName == 0 || args.newlabelName == 0) {
-                return {
-                    "message": "label name require",
-                    "success": false
-                }
+                // return {
+                //     "message": "label name require",
+                //     "success": false
+                // }
+                throw new Error("label name require")
             }
             var payload = await jwt.verify(context.token, process.env.APP_SECRET)
             if (payload) {
@@ -240,27 +253,35 @@ exports.updateLabel = async (root, args, context) => {
                 }
                 else {
                     // return label connot update
-                    return {
-                        "message": "label connot update",
-                        "success": false
-                    }
+                    // return {
+                    //     "message": "label connot update",
+                    //     "success": false
+                    // }
+                    throw new Error("label connot update")
                 }
 
             }
         }
         else {
             // return token not provided
-            return {
-                "message": "token not provided",
-                "success": false
-            }
+            // return {
+            //     "message": "token not provided",
+            //     "success": false
+            // }
+            throw new Error("token not provided")
         }
     }
     catch (err) {
         // return error
-        return {
-            "message": err,
-            "success": false
+        if (err instanceof ReferenceError
+            || err instanceof SyntaxError
+            || err instanceof TypeError
+            || err instanceof RangeError) {
+            return result;
+        }
+        else {
+            result.message = err.message;
+            return result
         }
     }
 }

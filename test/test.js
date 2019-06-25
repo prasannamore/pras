@@ -191,109 +191,109 @@ function negativetest() {
 
 
 
-// describe('labels', () => {
+describe('labels', () => {
 
 
-//     it('add label', (done) => {
-//         test("http://localhost:4000")
-//             .post('/graphql')
-//             .query({ "token": token })
-//             .send({ query: test1().createlabel })
-//             .expect(200)
-//             .end((err, res) => {
-//                 console.log(token)
-//                 if (err) return done(err);
-//                 expect(JSON.parse(res.text).data.addLabel.success).to.be.true
-//                 done();
-//             })
-//     });
-//     it('update label', (done) => {
-//         test("http://localhost:4000")
-//             .post('/graphql')
-//             .query({ "token": token })
-//             .send({ query: test1().updatelabel })
-//             .expect(200)
-//             .end((err, res) => {
-
-//                 if (err) return done(err);
-//                 expect(JSON.parse(res.text).data.updateLable.success).to.be.true
-//                 done();
-//             })
-//     });
-//     it('remove label', (done) => {
-//         test("http://localhost:4000")
-//             .post('/graphql')
-//             .query({ "token": token })
-//             .send({ query: 'mutation {removeLabel( labelID:"5cdd4a5dcf8aac4e73246c44") {message success }}' })
-//             .expect(200)
-//             .end((err, res) => {
-
-//                 if (err) return done(err);
-//                 expect(JSON.parse(res.text).data.removeLabel.success).to.be.true
-//                 done();
-//             })
-//     });
-// })
-
-
-// negative notes
-
-describe('nagative notes testing', () => {
-
-
-    it('add note already exits', (done) => {
+    it('add label', (done) => {
         test("http://localhost:4000")
             .post('/graphql')
             .query({ "token": token })
-            .send({ query: negativetest().negativeaddnote })
+            .send({ query: test1().createlabel })
             .expect(200)
             .end((err, res) => {
                 console.log(token)
                 if (err) return done(err);
-                expect(JSON.parse(res.text).data.addnote.success).to.be.false
+                expect(JSON.parse(res.text).data.addLabel.success).to.be.true
                 done();
             })
     });
-    it('update note not exits', (done) => {
+    it('update label', (done) => {
         test("http://localhost:4000")
             .post('/graphql')
             .query({ "token": token })
-            .send({ query: negativetest().negativeeditnote })
+            .send({ query: test1().updatelabel })
             .expect(200)
             .end((err, res) => {
 
                 if (err) return done(err);
-                expect(JSON.parse(res.text).data.editnote.success).to.be.false
+                expect(JSON.parse(res.text).data.updateLable.success).to.be.true
                 done();
             })
     });
-    it('remove note', (done) => {
+    it('remove label', (done) => {
         test("http://localhost:4000")
             .post('/graphql')
             .query({ "token": token })
-            .send({ query: negativetest().removenoteexists })
+            .send({ query: 'mutation {removeLabel( labelID:"5cdd4a5dcf8aac4e73246c44") {message success }}' })
             .expect(200)
             .end((err, res) => {
 
                 if (err) return done(err);
-                expect(JSON.parse(res.text).data.removenote.success).to.be.false
-                done();
-            })
-    });
-    it('add label to note', (done) => {
-        test("http://localhost:4000")
-            .post('/graphql')
-            .query({ "token": token })
-            .send({ query: negativetest().addLabelToNotelabelnotexits })
-            .expect(200)
-            .end((err, res) => {
-
-                if (err) return done(err);
-                expect(JSON.parse(res.text).data.addLabelToNote.success).to.be.false
+                expect(JSON.parse(res.text).data.removeLabel.success).to.be.true
                 done();
             })
     });
 })
+
+
+// negative notes
+
+// describe('nagative notes testing', () => {
+
+
+//     it('add note already exits', (done) => {
+//         test("http://localhost:4000")
+//             .post('/graphql')
+//             .query({ "token": token })
+//             .send({ query: negativetest().negativeaddnote })
+//             .expect(200)
+//             .end((err, res) => {
+//                 console.log(token)
+//                 if (err) return done(err);
+//                 expect(JSON.parse(res.text).data.addnote.success).to.be.false
+//                 done();
+//             })
+//     });
+//     it('update note not exits', (done) => {
+//         test("http://localhost:4000")
+//             .post('/graphql')
+//             .query({ "token": token })
+//             .send({ query: negativetest().negativeeditnote })
+//             .expect(200)
+//             .end((err, res) => {
+
+//                 if (err) return done(err);
+//                 expect(JSON.parse(res.text).data.editnote.success).to.be.false
+//                 done();
+//             })
+//     });
+//     it('remove note', (done) => {
+//         test("http://localhost:4000")
+//             .post('/graphql')
+//             .query({ "token": token })
+//             .send({ query: negativetest().removenoteexists })
+//             .expect(200)
+//             .end((err, res) => {
+
+//                 if (err) return done(err);
+//                 expect(JSON.parse(res.text).data.removenote.success).to.be.false
+//                 done();
+//             })
+//     });
+//     it('add label to note', (done) => {
+//         test("http://localhost:4000")
+//             .post('/graphql')
+//             .query({ "token": token })
+//             .send({ query: negativetest().addLabelToNotelabelnotexits })
+//             .expect(200)
+//             .end((err, res) => {
+
+//                 if (err) return done(err);
+//                 expect(JSON.parse(res.text).data.addLabelToNote.success).to.be.false
+//                 done();
+//             })
+//     });
+// })
 
 // describe('notes', () => {
 
@@ -353,34 +353,34 @@ describe('nagative notes testing', () => {
 // })
 
 
-describe('nagative watch and unwatch', () => {
-    it('watch reposiroty not exits', (done) => {
-        test("http://localhost:4000")
-            .post('/graphql')
-            .query({ "token": OAuth_token })
-            .send({ query: negativetest().negativewatchRepository })
-            .expect(200)
-            .end((err, res) => {
-                console.log(token)
-                if (err) return done(err);
-                expect(JSON.parse(res.text).data.watchrepository.success).to.be.false
-                done();
-            })
-    });
-    it('unWatch repository not exits', (done) => {
-        test("http://localhost:4000")
-            .post('/graphql')
-            .query({ "token": OAuth_token })
-            .send({ query: negativetest().negativeUnwatchRepository })
-            .expect(200)
-            .end((err, res) => {
+// describe('nagative watch and unwatch', () => {
+//     it('watch reposiroty not exits', (done) => {
+//         test("http://localhost:4000")
+//             .post('/graphql')
+//             .query({ "token": OAuth_token })
+//             .send({ query: negativetest().negativewatchRepository })
+//             .expect(200)
+//             .end((err, res) => {
+//                 console.log(token)
+//                 if (err) return done(err);
+//                 expect(JSON.parse(res.text).data.watchrepository.success).to.be.false
+//                 done();
+//             })
+//     });
+//     it('unWatch repository not exits', (done) => {
+//         test("http://localhost:4000")
+//             .post('/graphql')
+//             .query({ "token": OAuth_token })
+//             .send({ query: negativetest().negativeUnwatchRepository })
+//             .expect(200)
+//             .end((err, res) => {
 
-                if (err) return done(err);
-                expect(JSON.parse(res.text).data.unwatchrepository.success).to.be.false
-                done();
-            })
-    });
-})
+//                 if (err) return done(err);
+//                 expect(JSON.parse(res.text).data.unwatchrepository.success).to.be.false
+//                 done();
+//             })
+//     });
+// })
 
 
 

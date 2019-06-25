@@ -137,13 +137,7 @@ exports.resolvers = {
         },
         async Notes(root, args, context) {
             try {
-                notesModel.search({query_string: {query:{ "UserID":root._id}}}, function(err, results) {
-                    console.log("sdflsjf",results);
-                  });
-
-
-
-                console.log(root)
+                // console.log(root)
                 // find notes from mongodb
                 var notes = await notesModel.find({ UserID: root._id }).populate("labelID").sort({ title: 1 })
                 var offset = args.offset || 0;
@@ -160,12 +154,12 @@ exports.resolvers = {
         },
         async collabaratedNotes(root,args,context){
             try {
-                console.log(root)
+                //console.log(root)
                 // find notes from mongodb
                 var collaboratedNotes = await collaboraterModel.find({ collaboratorID: root._id }).populate("NoteID").sort({ title: 1 })
                 var offset = args.offset || 0;
                 var first = args.first || collaboratedNotes.length;
-                console.log("collaborataed notes   ",collaboratedNotes)
+                //console.log("collaborataed notes   ",collaboratedNotes)
                 return collaboratedNotes
             }
             catch (err) {

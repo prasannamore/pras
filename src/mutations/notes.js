@@ -28,6 +28,10 @@ const { createApolloFetch } = require('apollo-fetch');
    * @param {*} context    : context 
    */
 exports.addNotes = async (root, args, context) => {
+    let result = {
+        "message": "Something bad happened",
+        "success": false
+    }
     try {
         if (context.token) {
             var payload = await jwt.verify(context.token, process.env.APP_SECRET)
@@ -73,9 +77,15 @@ exports.addNotes = async (root, args, context) => {
         }
     }
     catch (err) {
-        return {
-            "message": err,
-            "success": false
+        if (err instanceof ReferenceError
+            || err instanceof SyntaxError
+            || err instanceof TypeError
+            || err instanceof RangeError) {
+            return result;
+        }
+        else {
+            result.message = err.message;
+            return result
         }
     }
 }
@@ -87,6 +97,10 @@ exports.addNotes = async (root, args, context) => {
    * @param {*} context    : context 
    */
 exports.removeNote = async (root, args, context) => {
+    let result = {
+        "message": "Something bad happened",
+        "success": false
+    }
     try {
         // check if token is provided
         if (context.token) {
@@ -126,9 +140,15 @@ exports.removeNote = async (root, args, context) => {
         }
     } catch (err) {
         // return error
-        return {
-            "message": err,
-            "success": false
+        if (err instanceof ReferenceError
+            || err instanceof SyntaxError
+            || err instanceof TypeError
+            || err instanceof RangeError) {
+            return result;
+        }
+        else {
+            result.message = err.message;
+            return result
         }
     }
 
@@ -141,6 +161,10 @@ exports.removeNote = async (root, args, context) => {
    * @param {*} context    : context 
    */
 exports.editNote = async (root, args, context) => {
+    let result = {
+        "message": "Something bad happened",
+        "success": false
+    }
     try {
         // check if token is provided
         if (context.token) {
@@ -184,9 +208,15 @@ exports.editNote = async (root, args, context) => {
     }
     catch (err) {
         // return error
-        return {
-            "message": err,
-            "success": false
+        if (err instanceof ReferenceError
+            || err instanceof SyntaxError
+            || err instanceof TypeError
+            || err instanceof RangeError) {
+            return result;
+        }
+        else {
+            result.message = err.message;
+            return result
         }
     }
 }
@@ -198,6 +228,10 @@ exports.editNote = async (root, args, context) => {
    * @param {*} context    : context 
    */
 exports.addLabelToNote = async (root, args, context) => {
+    let result = {
+        "message": "Something bad happened",
+        "success": false
+    }
     try {
         // check if labelName is given
         if (context.token) {
@@ -243,9 +277,15 @@ exports.addLabelToNote = async (root, args, context) => {
     }
     catch (err) {
         // return error
-        return {
-            "message": err,
-            "success": false
+        if (err instanceof ReferenceError
+            || err instanceof SyntaxError
+            || err instanceof TypeError
+            || err instanceof RangeError) {
+            return result;
+        }
+        else {
+            result.message = err.message;
+            return result
         }
     }
 }
@@ -257,6 +297,10 @@ exports.addLabelToNote = async (root, args, context) => {
    * @param {*} context    : context 
    */
 exports.removeLabelfromNote = async (root, args, context) => {
+    let result = {
+        "message": "Something bad happened",
+        "success": false
+    }
     try {
         // check if token is provided
         if (context.token) {
@@ -306,9 +350,15 @@ exports.removeLabelfromNote = async (root, args, context) => {
     }
     catch (err) {
         // return error
-        return {
-            "message": err,
-            "success": false
+        if (err instanceof ReferenceError
+            || err instanceof SyntaxError
+            || err instanceof TypeError
+            || err instanceof RangeError) {
+            return result;
+        }
+        else {
+            result.message = err.message;
+            return result
         }
     }
 }
@@ -320,6 +370,11 @@ exports.removeLabelfromNote = async (root, args, context) => {
    * @param {*} context    : context 
    */
 exports.archive = async (root, args, context) => {
+    let result = {
+        "message": "Something bad happened",
+        "success": false
+    }
+    try{
     // check of token provided
     if (context.token) {
         // verify token
@@ -368,6 +423,19 @@ exports.archive = async (root, args, context) => {
         }
     }
 }
+catch(err){
+    if (err instanceof ReferenceError
+        || err instanceof SyntaxError
+        || err instanceof TypeError
+        || err instanceof RangeError) {
+        return result;
+    }
+    else {
+        result.message = err.message;
+        return result
+    }
+}
+}
 /**
    * @description       : trash notes
    * @purpose           : trash note
@@ -376,6 +444,11 @@ exports.archive = async (root, args, context) => {
    * @param {*} context    : context 
    */
 exports.trash = async (root, args, context) => {
+    let result = {
+        "message": "Something bad happened",
+        "success": false
+    }
+    try{
     // check if token provided
     if (context.token) {
         // verify token
@@ -424,6 +497,19 @@ exports.trash = async (root, args, context) => {
         }
     }
 }
+catch(err){
+    if (err instanceof ReferenceError
+        || err instanceof SyntaxError
+        || err instanceof TypeError
+        || err instanceof RangeError) {
+        return result;
+    }
+    else {
+        result.message = err.message;
+        return result
+    }
+}
+}
 /**
   * @description       : untrash notes
   * @purpose           : untrash note
@@ -432,6 +518,11 @@ exports.trash = async (root, args, context) => {
   * @param {*} context    : context 
   */
 exports.untrash = async (root, args, context) => {
+    let result = {
+        "message": "Something bad happened",
+        "success": false
+    }
+    try{
     // check if token provided
     if (context.token) {
         // verify token
@@ -481,6 +572,19 @@ exports.untrash = async (root, args, context) => {
         }
     }
 }
+catch(err){
+    if (err instanceof ReferenceError
+        || err instanceof SyntaxError
+        || err instanceof TypeError
+        || err instanceof RangeError) {
+        return result;
+    }
+    else {
+        result.message = err.message;
+        return result
+    }
+}
+}
 /**
   * @description       : unarchive notes
   * @purpose           : unarchive note
@@ -489,6 +593,10 @@ exports.untrash = async (root, args, context) => {
   * @param {*} context    : context 
   */
 exports.unarchive = async (root, args, context) => {
+    let result = {
+        "message": "Something bad happened",
+        "success": false
+    }
     // check if token provided
     try {
         if (context.token) {
@@ -537,9 +645,15 @@ exports.unarchive = async (root, args, context) => {
         }
     } catch (err) {
         console.log(err)
-        return {
-            "message": "error",
-            "success": false
+        if (err instanceof ReferenceError
+            || err instanceof SyntaxError
+            || err instanceof TypeError
+            || err instanceof RangeError) {
+            return result;
+        }
+        else {
+            result.message = err.message;
+            return result
         }
     }
 }
@@ -551,6 +665,11 @@ exports.unarchive = async (root, args, context) => {
   * @param {*} context    : context 
   */
 exports.pullGitRepo = async (root, args, context) => {
+    let result = {
+        "message": "Something bad happened",
+        "success": false
+    }
+    try{
     // check if token provided
     if (context.token) {
         // verify token
@@ -625,6 +744,19 @@ exports.pullGitRepo = async (root, args, context) => {
         }
     }
 }
+    catch(err){
+        if (err instanceof ReferenceError
+            || err instanceof SyntaxError
+            || err instanceof TypeError
+            || err instanceof RangeError) {
+            return result;
+        }
+        else {
+            result.message = err.message;
+            return result
+        }
+    }
+}
 /**
   * @description       : add reminder to  notes
   * @param {*} root    : result of previous resolve function
@@ -632,6 +764,10 @@ exports.pullGitRepo = async (root, args, context) => {
   * @param {*} context    : context 
   */
 exports.addReminder = async (root, args, context) => {
+    let result = {
+        "message": "Something bad happened",
+        "success": false
+    }
     // check if token provided
     try {
         if (context.token) {
@@ -655,26 +791,37 @@ exports.addReminder = async (root, args, context) => {
                     }
                     else {
                         // return reminder not added successfully
-                        return {
-                            "message": "reminder not added successfully",
-                            "success": false
-                        }
+                        // return {
+                        //     "message": "reminder not added successfully",
+                        //     "success": false
+                        // }
+                        throw new Error("reminder not added successfully")
                     }
+                }
+                else{
+                    throw new Error("note not exists")
                 }
             }
         }
         else {
             // return token not provided
-            return {
-                "message": "token not provided",
-                "success": false
-            }
+            // return {
+            //     "message": "token not provided",
+            //     "success": false
+            // }
+            throw new Error("token not provided")
         }
     } catch (err) {
         console.log(err)
-        return {
-            "message": "error",
-            "success": false
+        if (err instanceof ReferenceError
+            || err instanceof SyntaxError
+            || err instanceof TypeError
+            || err instanceof RangeError) {
+            return result;
+        }
+        else {
+            result.message = err.message;
+            return result
         }
     }
 }
